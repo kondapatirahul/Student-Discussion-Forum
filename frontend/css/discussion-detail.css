@@ -1,0 +1,12 @@
+.detail-container { max-width: 900px; min-height: 72vh; }
+.back-link { display: inline-flex; align-items: center; gap: .4rem; color: #53617c; font-weight: 600; }
+.back-link:hover { color: #425de6; }
+.detail-card { padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid #e8ecf5; border-radius: 22px; background: #fff; box-shadow: 0 18px 55px rgba(25, 43, 91, .06); }
+.detail-card h1 { letter-spacing: -.045em; overflow-wrap: anywhere; }
+.detail-category { padding: .55rem .85rem; background: #eef2ff; color: #425de6; font-weight: 700; }
+.detail-date { color: #778096; font-size: .88rem; }
+.detail-author { color: #26334d; }
+.detail-avatar { display: inline-grid; place-items: center; width: 46px; height: 46px; flex: 0 0 46px; border-radius: 50%; background: #edf0ff; color: #425de6; font-size: 1.1rem; font-weight: 800; }
+.detail-divider { height: 1px; margin: 1.5rem 0; background: #edf0f5; }
+.discussion-content { color: #39445b; font-size: 1.04rem; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
+.detail-footer { padding-top: 1.25rem; border-top: 1px solid #edf0f5; }
