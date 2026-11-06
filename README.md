@@ -4,7 +4,7 @@ A full-stack discussion platform for students to ask questions, share knowledge,
 
 ## ZIP 1 — Foundation
 
-This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Student registration is included in ZIP 3. Student login and JWT-protected profile lookup are included in ZIP 4. Profile viewing and browser-session logout are included in ZIP 5. Authenticated discussion creation is included in ZIP 6. Public discussion browsing with search, category filters, sorting, and pagination is included in ZIP 7. Individual discussion detail pages and the single-post API are included in ZIP 8.
+This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Student registration is included in ZIP 3. Student login and JWT-protected profile lookup are included in ZIP 4. Profile viewing and browser-session logout are included in ZIP 5. Authenticated discussion creation is included in ZIP 6. Public discussion browsing with search, category filters, sorting, and pagination is included in ZIP 7. Individual discussion detail pages and the single-post API are included in ZIP 8. Author-only editing and deletion are included in ZIP 9.
 
 ## Stack
 
@@ -44,7 +44,9 @@ The API runs at `http://localhost:5000` by default.
 - `POST /api/auth/register` — create a student account
 - `POST /api/auth/login` — verify credentials and issue a JWT
 - `GET /api/auth/me` — return the authenticated student profile
-- `GET /api/posts` — browse discussions with pagination, category filtering, search, and sorting\n- `GET /api/posts/:id` — read one complete discussion\n- `POST /api/posts` — create an authenticated student discussion
+- `GET /api/posts` — browse discussions with pagination, category filtering, search, and sorting\n- `GET /api/posts/:id` — read one complete discussion
+- `PATCH /api/posts/:id` — update a discussion owned by the authenticated student
+- `DELETE /api/posts/:id` — delete a discussion owned by the authenticated student\n- `POST /api/posts` — create an authenticated student discussion
 - `POST /api/auth/logout` — clear the authenticated browser session
 - `GET /api` — API welcome response
 
@@ -80,7 +82,8 @@ See `backend/.env.example`. Never commit `.env` or production secrets.
 4. Student login and protected profile endpoint
 5. Student profile page and session logout
 6. Authenticated discussion creation
-7. Post feeds, details, editing, deletion, search, and categories
-7. Post feeds, details, editing, deletion, search, and categories
-8. Comments, replies, reactions, and notifications
-10. Administration, moderation, hardening, and deployment
+7. Public discussion feed, search, category filters, sorting, and pagination
+8. Individual discussion detail page and single-post API
+9. Author-only discussion editing and deletion
+10. Comments, replies, reactions, and notifications
+11. Administration, moderation, hardening, and deployment
