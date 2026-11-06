@@ -4,7 +4,7 @@ A full-stack discussion platform for students to ask questions, share knowledge,
 
 ## ZIP 1 — Foundation
 
-This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Student registration is included in ZIP 3. Student login and JWT-protected profile lookup are included in ZIP 4. Profile viewing and browser-session logout are included in ZIP 5. Authenticated discussion creation is included in ZIP 6. Public discussion browsing with search, category filters, sorting, and pagination is included in ZIP 7. Individual discussion detail pages and the single-post API are included in ZIP 8. Author-only editing and deletion are included in ZIP 9. Discussion comments and one-level replies are included in ZIP 10.
+This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Student registration is included in ZIP 3. Student login and JWT-protected profile lookup are included in ZIP 4. Profile viewing and browser-session logout are included in ZIP 5. Authenticated discussion creation is included in ZIP 6. Public discussion browsing with search, category filters, sorting, and pagination is included in ZIP 7. Individual discussion detail pages and the single-post API are included in ZIP 8. Author-only editing and deletion are included in ZIP 9. Discussion comments and one-level replies are included in ZIP 10. Discussion and comment reactions with duplicate-like protection are included in ZIP 11.
 
 ## Stack
 
@@ -52,6 +52,8 @@ The API runs at `http://localhost:5000` by default.
 - `POST /api/posts/:postId/comments` — add a comment or one-level reply
 - `PATCH /api/posts/:postId/comments/:commentId` — edit your own comment
 - `DELETE /api/posts/:postId/comments/:commentId` — delete your own comment
+- `POST /api/posts/:postId/reaction` — toggle a like on a discussion
+- `POST /api/posts/:postId/comments/:commentId/reaction` — toggle a like on a comment
 - `POST /api/posts` — create an authenticated student discussion
 - `POST /api/auth/logout` — clear the authenticated browser session
 - `GET /api` — API welcome response
@@ -92,4 +94,5 @@ See `backend/.env.example`. Never commit `.env` or production secrets.
 8. Individual discussion detail page and single-post API
 9. Author-only discussion editing and deletion
 10. Comments and one-level replies
-11. Reactions, notifications, administration, moderation, hardening, and deployment
+11. Reactions and likes on discussions and comments
+12. Notifications, administration, moderation, hardening, and deployment

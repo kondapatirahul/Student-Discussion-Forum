@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Comment = require('../models/Comment');
 const { Post } = require('../models/Post');
+const Reaction = require('../models/Reaction');
 
 const COMMENT_MAX_LENGTH = 2000;
 const COMMENT_MIN_LENGTH = 2;
@@ -50,10 +51,25 @@ async function listComments(req, res, next) {
     ]);
 
     const totalPages = Math.ceil(total / limit);
+    const ids = comments.map((comment) => comment._id);
+    const reactionRows = ids.length ? await Reaction.aggregate([
+      { $match: { targetType: 'Comment', target: { $in: ids } } },
+      { $group: {
+        _id: '$target',
+        count: { $sum: 1 },
+        liked: { $max: req.user && req.user.id
+          ? { $cond: [{ $eq: ['$user', new mongoose.Types.ObjectId(req.user.id)] }, 1, 0] }
+          : 0 }
+      } }
+    ]) : [];
+    const reactionMap = new Map(reactionRows.map((row) => [
+      row._id.toString(),
+      { reactionCount: row.count, isLiked: row.liked === 1 }
+    ]));
     return res.status(200).json({
       success: true,
       data: {
-        comments: comments.map(serializeComment),
+        comments: comments.map((comment) => ({ ...serializeComment(comment), ...(reactionMap.get(comment._id.toString()) || { reactionCount: 0, isLiked: false }) })),
         pagination: {
           page,
           limit,
@@ -183,8 +199,10 @@ async function deleteComment(req, res, next) {
     if (!comment.parent) {
       const replies = await Comment.find({ post: postId, parent: comment._id }).select('_id');
       const replyIds = replies.map((reply) => reply._id);
+      await Reaction.deleteMany({ targetType: 'Comment', target: { $in: replyIds } });
       await Comment.deleteMany({ _id: { $in: replyIds } });
     }
+    await Reaction.deleteMany({ targetType: 'Comment', target: comment._id });
     await comment.deleteOne();
 
     return res.status(200).json({

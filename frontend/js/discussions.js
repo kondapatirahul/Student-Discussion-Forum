@@ -29,6 +29,40 @@ document.addEventListener('DOMContentLoaded', () => {
     return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(date);
   }
 
+  function makeReactionButton(targetType, targetId, count, liked) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `btn btn-sm reaction-button${liked ? ' is-liked' : ''}`;
+    button.setAttribute('aria-pressed', String(Boolean(liked)));
+    button.textContent = `♥ ${count || 0} ${count === 1 ? 'like' : 'likes'}`;
+    button.addEventListener('click', async () => {
+      const token = window.CampusTalkSession?.getToken();
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }
+      button.disabled = true;
+      try {
+        const response = await fetch(`${apiBase}/posts/${targetId}/reaction`, {
+          method: 'POST', headers: { Authorization: `Bearer ${token}` }
+        });
+        const result = await response.json();
+        if (response.status === 401) {
+          window.CampusTalkSession.clear();
+          window.location.replace('login.html');
+          return;
+        }
+        if (!response.ok || !result.success) throw new Error(result.message || 'Could not update your like.');
+        button.classList.toggle('is-liked', result.data.liked);
+        button.setAttribute('aria-pressed', String(result.data.liked));
+        button.textContent = `♥ ${result.data.reactionCount} ${result.data.reactionCount === 1 ? 'like' : 'likes'}`;
+      } catch (error) {
+        button.title = error.message;
+      } finally { button.disabled = false; }
+    });
+    return button;
+  }
+
   function makeDiscussionCard(post) {
     const article = document.createElement('article');
     article.className = 'discussion-card';
@@ -70,7 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
     readLink.href = `discussion.html?id=${encodeURIComponent(post.id)}`;
     readLink.textContent = 'Read full discussion →';
 
-    article.append(top, title, excerpt, footer, readLink);
+    const actions = document.createElement('div');
+    actions.className = 'd-flex flex-wrap align-items-center gap-3 mt-3';
+    actions.append(makeReactionButton('Post', post.id, post.reactionCount || 0, post.isLiked));
+    article.append(top, title, excerpt, footer, actions, readLink);
     return article;
   }
 
@@ -111,7 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput.value.trim()) params.set('search', searchInput.value.trim());
 
     try {
-      const response = await fetch(`${apiBase}/posts?${params.toString()}`);
+      const token = window.CampusTalkSession?.getToken();
+      const response = await fetch(`${apiBase}/posts?${params.toString()}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
+      });
       const result = await response.json();
       if (requestId !== state.requestId) return;
       if (!response.ok || !result.success || !result.data) {

@@ -17,3 +17,14 @@
 \n.feed-author-avatar { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #edf0ff; color: #425de6; font-size: .78rem; font-weight: 700; }\n
 .discussion-title-link { color: #1e293b; }
 .discussion-title-link:hover { color: #425de6; }
+
+
+.reaction-button {
+  border: 1px solid #d8deea;
+  border-radius: 999px;
+  color: #526078;
+  background: #fff;
+  padding: .35rem .8rem;
+}
+.reaction-button:hover { border-color: #8da9ee; background: #f5f8ff; }
+.reaction-button.is-liked { color: #c12f58; font-weight: 700; }
