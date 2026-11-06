@@ -4,7 +4,7 @@ A full-stack discussion platform for students to ask questions, share knowledge,
 
 ## ZIP 1 — Foundation
 
-This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. Authentication and discussion CRUD are intentionally reserved for later increments.
+This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Authentication and discussion CRUD are intentionally reserved for later increments.
 
 ## Stack
 
@@ -40,6 +40,7 @@ npm run dev
 The API runs at `http://localhost:5000` by default.
 
 - `GET /api/health` — service status
+- `GET /api/dashboard/overview` — initial dashboard summary
 - `GET /api` — API welcome response
 
 ### 3. Open the frontend
@@ -68,8 +69,9 @@ See `backend/.env.example`. Never commit `.env` or production secrets.
 
 ## Planned increments
 
-1. Foundation and dashboard shell
-2. Registration, login, logout, and profile
-3. Posts, details, editing, deletion, search, and categories
-4. Comments, replies, reactions, and notifications
-5. Administration, moderation, hardening, and deployment
+1. Foundation and homepage
+2. Dashboard page and overview API
+3. Registration, login, logout, and profile
+4. Posts, details, editing, deletion, search, and categories
+5. Comments, replies, reactions, and notifications
+6. Administration, moderation, hardening, and deployment
