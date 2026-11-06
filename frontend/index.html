@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A place for students to ask questions, share ideas, and learn together.">
+  <title>CampusTalk — Student Discussion Forum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Campus<span class="brand-accent">Talk</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <a class="nav-link active" href="#home">Home</a>
+          <a class="nav-link" href="#discussions">Discussions</a>
+          <a class="nav-link" href="#categories">Categories</a>
+          <a class="btn btn-primary btn-sm px-3 ms-lg-2" href="#get-started">Join the community</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero-section" id="home">
+      <div class="container py-5 py-lg-6">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="eyebrow">YOUR CAMPUS. YOUR COMMUNITY.</span>
+            <h1 class="display-4 fw-bold mt-3">Good questions lead to <span class="text-primary">great ideas.</span></h1>
+            <p class="lead text-secondary mt-3 mb-4">A welcoming space for students to ask, discuss, share resources, and learn from one another.</p>
+            <div class="d-flex flex-wrap gap-3">
+              <a class="btn btn-primary btn-lg" href="#get-started">Explore the community</a>
+              <a class="btn btn-outline-secondary btn-lg" href="#about">How it works</a>
+            </div>
+            <div class="hero-proof mt-4">
+              <span class="proof-dot"></span>
+              Built for curious students and helpful classmates
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="discussion-preview shadow-sm">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <span class="fw-semibold">Community highlights</span>
+                <span class="small text-success">● Live soon</span>
+              </div>
+              <div class="preview-item">
+                <div class="avatar avatar-blue">DS</div>
+                <div><div class="fw-semibold">Data Structures</div><div class="small text-secondary">How do you approach graph problems?</div></div>
+                <span class="ms-auto badge text-bg-light">12 replies</span>
+              </div>
+              <div class="preview-item">
+                <div class="avatar avatar-purple">WT</div>
+                <div><div class="fw-semibold">Web Technology</div><div class="small text-secondary">Share your favourite JavaScript resources</div></div>
+                <span class="ms-auto badge text-bg-light">8 replies</span>
+              </div>
+              <div class="preview-item">
+                <div class="avatar avatar-green">CP</div>
+                <div><div class="fw-semibold">Campus Projects</div><div class="small text-secondary">Looking for hackathon teammates</div></div>
+                <span class="ms-auto badge text-bg-light">5 replies</span>
+              </div>
+              <div class="preview-note mt-4">A preview of the conversations this community will bring together.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container py-5" id="discussions">
+      <div class="section-heading d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div><span class="eyebrow">GETTING STARTED</span><h2 class="h2 fw-bold mt-2 mb-0">Find your next conversation</h2></div>
+        <span class="text-secondary small">Discussion feeds arrive in the next increment</span>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-4"><article class="category-card h-100"><div class="category-icon icon-blue">01</div><h3 class="h5 fw-bold mt-3">Ask a question</h3><p class="text-secondary mb-0">Get help with coursework, concepts, and campus life.</p></article></div>
+        <div class="col-md-4"><article class="category-card h-100"><div class="category-icon icon-purple">02</div><h3 class="h5 fw-bold mt-3">Share what you know</h3><p class="text-secondary mb-0">Explain a topic, share resources, and help classmates grow.</p></article></div>
+        <div class="col-md-4"><article class="category-card h-100"><div class="category-icon icon-green">03</div><h3 class="h5 fw-bold mt-3">Learn together</h3><p class="text-secondary mb-0">Discover ideas and collaborate with your student community.</p></article></div>
+      </div>
+    </section>
+
+    <section class="community-section py-5" id="categories">
+      <div class="container py-3">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-8"><span class="eyebrow">MADE FOR STUDENTS</span><h2 class="h2 fw-bold mt-2">One community, many perspectives.</h2><p class="text-secondary mb-0">From programming and placements to projects and college events, CampusTalk is designed to make peer learning easier.</p></div>
+          <div class="col-lg-4 text-lg-end"><a class="btn btn-outline-primary" href="#about">Discover the idea</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container py-5" id="get-started">
+      <div class="cta-panel text-center p-4 p-md-5">
+        <span class="eyebrow">COMING TOGETHER</span>
+        <h2 class="h2 fw-bold mt-2">Your voice belongs here.</h2>
+        <p class="text-secondary mb-4">The foundation is ready. Account creation and live discussions are coming in the next releases.</p>
+        <button class="btn btn-primary" id="apiStatusButton" type="button">Check API connection</button>
+        <p class="small mt-3 mb-0" id="apiStatus" role="status" aria-live="polite">API status has not been checked yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-top py-4">
+    <div class="container d-flex flex-wrap justify-content-between gap-2 small text-secondary">
+      <span>© <span id="year"></span> CampusTalk Student Discussion Forum</span>
+      <span>Built for students, by students.</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
