@@ -10,3 +10,10 @@
 .detail-divider { height: 1px; margin: 1.5rem 0; background: #edf0f5; }
 .discussion-content { color: #39445b; font-size: 1.04rem; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
 .detail-footer { padding-top: 1.25rem; border-top: 1px solid #edf0f5; }
+
+.author-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; padding: 1rem; border: 1px solid #e8ecf5; border-radius: 14px; background: #fbfcff; }
+.edit-post-panel { padding: 1.25rem; border: 1px solid #e8ecf5; border-radius: 16px; background: #fbfcff; }
+.edit-post-panel .form-control, .edit-post-panel .form-select { border-color: #dfe4ef; border-radius: 10px; }
+.edit-post-panel textarea { resize: vertical; min-height: 150px; }
+.edit-post-panel .form-control:focus, .edit-post-panel .form-select:focus { border-color: #8798f2; box-shadow: 0 0 0 .2rem rgba(66, 93, 230, .12); }
+@media (max-width: 575.98px) { .author-actions { align-items: stretch; } .author-actions .btn { flex: 1 1 auto; } }
