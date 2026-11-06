@@ -15,3 +15,5 @@
 .feed-pagination button { min-width: 112px; }
 @media (max-width: 575.98px) { .discussion-card { padding: 1.1rem; } .feed-pagination button { min-width: 96px; } }
 \n.feed-author-avatar { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #edf0ff; color: #425de6; font-size: .78rem; font-weight: 700; }\n
+.discussion-title-link { color: #1e293b; }
+.discussion-title-link:hover { color: #425de6; }

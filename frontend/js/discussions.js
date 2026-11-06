@@ -46,7 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const title = document.createElement('h2');
     title.className = 'fw-bold mb-2';
-    title.textContent = post.title || 'Untitled discussion';
+    const titleLink = document.createElement('a');
+    titleLink.className = 'discussion-title-link text-decoration-none';
+    titleLink.href = `discussion.html?id=${encodeURIComponent(post.id)}`;
+    titleLink.textContent = post.title || 'Untitled discussion';
+    title.append(titleLink);
 
     const excerpt = document.createElement('p');
     excerpt.className = 'text-secondary mb-3';
@@ -61,7 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
     author.textContent = `Posted by ${post.author?.name || 'Former student'}`;
     footer.append(avatar, author);
 
-    article.append(top, title, excerpt, footer);
+    const readLink = document.createElement('a');
+    readLink.className = 'small fw-semibold text-decoration-none';
+    readLink.href = `discussion.html?id=${encodeURIComponent(post.id)}`;
+    readLink.textContent = 'Read full discussion →';
+
+    article.append(top, title, excerpt, footer, readLink);
     return article;
   }
 
