@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Your CampusTalk student discussion dashboard.">
+  <title>Dashboard — CampusTalk</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-page">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Campus<span class="brand-accent">Talk</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link active" aria-current="page" href="dashboard.html">Dashboard</a>
+          <a class="nav-link" href="index.html#discussions">Discussions</a>
+          <a class="btn btn-primary btn-sm px-3 ms-lg-2" href="index.html#get-started">Community</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container dashboard-container py-4 py-lg-5">
+    <div class="dashboard-heading d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+      <div>
+        <span class="eyebrow">STUDENT COMMUNITY</span>
+        <h1 class="h2 fw-bold mt-2 mb-1">Dashboard</h1>
+        <p class="text-secondary mb-0">A quick look at what's happening in your learning community.</p>
+      </div>
+      <a class="btn btn-primary" href="index.html#discussions">Explore community</a>
+    </div>
+
+    <div class="alert alert-light border d-flex align-items-center gap-2" role="status">
+      <span class="status-indicator"></span>
+      <span id="dashboardStatus">Loading dashboard overview…</span>
+    </div>
+
+    <section aria-labelledby="overviewTitle" class="mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h5 fw-bold mb-0" id="overviewTitle">Community overview</h2>
+        <span class="small text-secondary">Live API summary</span>
+      </div>
+      <div class="row g-3">
+        <div class="col-sm-6 col-xl-4">
+          <article class="metric-card h-100">
+            <div class="metric-top"><span class="metric-icon metric-blue">D</span><span class="metric-label">DISCUSSIONS</span></div>
+            <div class="metric-value" id="discussionCount">—</div>
+            <p class="metric-caption mb-0">Total discussions created</p>
+          </article>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+          <article class="metric-card h-100">
+            <div class="metric-top"><span class="metric-icon metric-purple">S</span><span class="metric-label">STUDENTS</span></div>
+            <div class="metric-value" id="studentCount">—</div>
+            <p class="metric-caption mb-0">Community members</p>
+          </article>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+          <article class="metric-card h-100">
+            <div class="metric-top"><span class="metric-icon metric-green">C</span><span class="metric-label">COMMENTS</span></div>
+            <div class="metric-value" id="commentCount">—</div>
+            <p class="metric-caption mb-0">Conversation responses</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="row g-4">
+      <section class="col-lg-7" aria-labelledby="recentTitle">
+        <div class="panel-card h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div><span class="eyebrow">WHAT'S NEW</span><h2 class="h5 fw-bold mt-1 mb-0" id="recentTitle">Recent discussions</h2></div>
+            <span class="badge rounded-pill text-bg-light">Latest</span>
+          </div>
+          <div id="recentDiscussions" class="empty-state">
+            <div class="empty-state-icon">✦</div>
+            <h3 class="h6 fw-bold">Your feed is ready</h3>
+            <p class="text-secondary small mb-0">New student discussions will appear here when the posts module is added.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="col-lg-5" aria-labelledby="categoriesTitle">
+        <div class="panel-card h-100">
+          <span class="eyebrow">EXPLORE BY TOPIC</span>
+          <h2 class="h5 fw-bold mt-1 mb-3" id="categoriesTitle">Popular categories</h2>
+          <div id="categoryList" class="category-list">
+            <div class="category-row"><span>Programming</span><span class="category-count">0</span></div>
+            <div class="category-row"><span>Academics</span><span class="category-count">0</span></div>
+            <div class="category-row"><span>Projects</span><span class="category-count">0</span></div>
+            <div class="category-row"><span>Campus Life</span><span class="category-count">0</span></div>
+          </div>
+          <p class="small text-secondary mt-3 mb-0">Category counts will update as students publish posts.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="dashboard-tip mt-4 p-4">
+      <div class="d-flex gap-3 align-items-start">
+        <span class="tip-icon">✧</span>
+        <div><h2 class="h6 fw-bold mb-1">A space to learn together</h2><p class="text-secondary small mb-0">Ask thoughtful questions, share useful resources, and support your classmates. Post creation and account features are planned for upcoming increments.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-top py-4">
+    <div class="container d-flex flex-wrap justify-content-between gap-2 small text-secondary">
+      <span>© <span id="year"></span> CampusTalk Student Discussion Forum</span>
+      <a class="text-decoration-none" href="index.html">Back to home</a>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

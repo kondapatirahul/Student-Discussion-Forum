@@ -1,0 +1,20 @@
+.dashboard-page { min-height: 100vh; background: #f8f9fd; }
+.dashboard-container { max-width: 1160px; }
+.dashboard-heading h1 { letter-spacing: -.045em; }
+.metric-card, .panel-card { background: #fff; border: 1px solid #e9edf6; border-radius: 16px; padding: 1.35rem; }
+.metric-top { display: flex; align-items: center; justify-content: space-between; }
+.metric-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; font-weight: 800; }
+.metric-blue { color: #425de6; background: #eaf0ff; }
+.metric-purple { color: #8655d8; background: #f1eaff; }
+.metric-green { color: #209768; background: #e5f8ef; }
+.metric-label { color: #8790a4; font-size: .65rem; font-weight: 800; letter-spacing: .12em; }
+.metric-value { margin-top: 1.1rem; font-size: 2rem; line-height: 1; font-weight: 800; letter-spacing: -.05em; color: #17213b; }
+.metric-caption { margin-top: .55rem; color: #7a8499; font-size: .82rem; }
+.status-indicator { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: #2fb982; }
+.empty-state { min-height: 205px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; border: 1px dashed #dce2ef; border-radius: 13px; background: #fbfcff; }
+.empty-state-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: .8rem; border-radius: 13px; color: #425de6; background: #eaf0ff; font-size: 1.3rem; }
+.category-list { display: grid; gap: .6rem; }
+.category-row { display: flex; justify-content: space-between; align-items: center; padding: .8rem .9rem; border-radius: 11px; background: #f8f9fd; color: #39445d; font-size: .88rem; font-weight: 600; }
+.category-count { min-width: 28px; padding: .2rem .45rem; border-radius: 8px; background: #fff; color: #6c7690; text-align: center; font-size: .75rem; }
+.dashboard-tip { border: 1px solid #e4e9fb; border-radius: 15px; background: #f1f4ff; }
+.tip-icon { display: grid; place-items: center; width: 34px; height: 34px; flex: 0 0 34px; border-radius: 11px; color: #425de6; background: #fff; font-size: 1.1rem; }
