@@ -4,7 +4,7 @@ A full-stack discussion platform for students to ask questions, share knowledge,
 
 ## ZIP 1 — Foundation
 
-This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Authentication and discussion CRUD are intentionally reserved for later increments.
+This increment establishes the project structure, Express API, MongoDB connection configuration, health endpoint, static frontend shell, and local development instructions. The dashboard page and overview API are included in ZIP 2. Student registration is included in ZIP 3. Login, logout, and discussion CRUD are reserved for later increments.
 
 ## Stack
 
@@ -41,6 +41,7 @@ The API runs at `http://localhost:5000` by default.
 
 - `GET /api/health` — service status
 - `GET /api/dashboard/overview` — initial dashboard summary
+- `POST /api/auth/register` — create a student account
 - `GET /api` — API welcome response
 
 ### 3. Open the frontend
@@ -71,7 +72,8 @@ See `backend/.env.example`. Never commit `.env` or production secrets.
 
 1. Foundation and homepage
 2. Dashboard page and overview API
-3. Registration, login, logout, and profile
-4. Posts, details, editing, deletion, search, and categories
-5. Comments, replies, reactions, and notifications
-6. Administration, moderation, hardening, and deployment
+3. Student registration and password hashing
+4. Login, logout, and profile
+5. Posts, details, editing, deletion, search, and categories
+6. Comments, replies, reactions, and notifications
+7. Administration, moderation, hardening, and deployment
