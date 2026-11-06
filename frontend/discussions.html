@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse student questions, ideas, and campus discussions on CampusTalk.">
+  <title>Discussions — CampusTalk</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/discussions.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Campus<span class="brand-accent">Talk</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link active" aria-current="page" href="discussions.html">Discussions</a>
+          <a class="nav-link" href="dashboard.html">Dashboard</a>
+          <a class="nav-link" href="profile.html">My profile</a>
+          <a class="nav-link" href="login.html">Login</a>
+          <a class="btn btn-primary btn-sm px-3 ms-lg-2" href="create-post.html">Start a discussion</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container feed-container py-4 py-lg-5">
+    <header class="feed-header d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+      <div><span class="eyebrow">STUDENT COMMUNITY</span><h1 class="display-6 fw-bold mt-2 mb-1">Explore discussions</h1><p class="text-secondary mb-0">Find answers, exchange ideas, and learn from your campus community.</p></div>
+      <a class="btn btn-primary" href="create-post.html">＋ Create post</a>
+    </header>
+
+    <section class="feed-toolbar p-3 p-lg-4 mb-4" aria-label="Discussion filters">
+      <form id="filterForm" class="row g-3 align-items-end">
+        <div class="col-lg-5">
+          <label class="form-label fw-semibold" for="searchInput">Search discussions</label>
+          <input class="form-control" id="searchInput" type="search" maxlength="100" placeholder="Search titles and descriptions">
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <label class="form-label fw-semibold" for="categoryFilter">Category</label>
+          <select class="form-select" id="categoryFilter">
+            <option value="">All categories</option>
+            <option>Programming</option><option>Academics</option><option>Projects</option>
+            <option>Campus Life</option><option>Placements</option><option>General</option>
+          </select>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+          <label class="form-label fw-semibold" for="sortFilter">Sort by</label>
+          <select class="form-select" id="sortFilter"><option value="latest">Newest first</option><option value="oldest">Oldest first</option></select>
+        </div>
+        <div class="col-lg-2 d-grid"><button class="btn btn-outline-primary" type="submit">Apply filters</button></div>
+      </form>
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-3">
+        <span class="small text-secondary" id="resultSummary" role="status" aria-live="polite">Loading discussions…</span>
+        <button class="btn btn-link btn-sm text-decoration-none p-0" id="clearFilters" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <div id="feedMessage" class="alert alert-light border d-none" role="status" aria-live="polite"></div>
+    <section id="discussionList" class="discussion-list" aria-label="Discussion results">
+      <div class="feed-loading"><span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span> Loading student discussions…</div>
+    </section>
+    <nav class="feed-pagination d-flex justify-content-between align-items-center gap-3 mt-4" aria-label="Discussion pages">
+      <button class="btn btn-outline-secondary btn-sm" id="previousPage" type="button" disabled>← Previous</button>
+      <span class="small text-secondary" id="pageSummary">Page 1</span>
+      <button class="btn btn-outline-secondary btn-sm" id="nextPage" type="button" disabled>Next →</button>
+    </nav>
+  </main>
+
+  <footer class="border-top py-4"><div class="container d-flex flex-wrap justify-content-between gap-2 small text-secondary"><span>© <span id="year"></span> CampusTalk Student Discussion Forum</span><a class="text-decoration-none" href="index.html">Back to home</a></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/discussions.js"></script>
+</body>
+</html>
