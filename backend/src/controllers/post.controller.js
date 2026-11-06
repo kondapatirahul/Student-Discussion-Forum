@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 const { Post, POST_CATEGORIES } = require('../models/Post');
+const Reaction = require('../models/Reaction');
+
+async function getReactionSummary(targetType, ids, userId) {
+  if (!ids.length) return new Map();
+  const rows = await Reaction.aggregate([
+    { $match: { targetType, target: { $in: ids.map((id) => new mongoose.Types.ObjectId(id)) } } },
+    { $group: { _id: '$target', count: { $sum: 1 }, liked: { $max: userId ? { $cond: [{ $eq: ['$user', new mongoose.Types.ObjectId(userId)] }, 1, 0] } : 0 } } }
+  ]);
+  return new Map(rows.map((row) => [row._id.toString(), { reactionCount: row.count, isLiked: row.liked === 1 }]));
+}
 
 async function createPost(req, res, next) {
   try {
@@ -79,6 +89,7 @@ async function listPosts(req, res, next) {
     ]);
 
     const totalPages = Math.ceil(total / limit);
+    const reactions = await getReactionSummary('Post', posts.map((post) => post._id), req.user?.id);
     return res.status(200).json({
       success: true,
       data: {
@@ -90,7 +101,8 @@ async function listPosts(req, res, next) {
           category: post.category,
           author: post.author ? { id: post.author._id.toString(), name: post.author.name } : { id: null, name: 'Former student' },
           createdAt: post.createdAt,
-          updatedAt: post.updatedAt
+          updatedAt: post.updatedAt,
+          ...(reactions.get(post._id.toString()) || { reactionCount: 0, isLiked: false })
         })),
         pagination: {
           page,
@@ -124,6 +136,7 @@ async function getPostById(req, res, next) {
       return res.status(404).json({ success: false, message: 'This discussion could not be found.' });
     }
 
+    const reactions = await getReactionSummary('Post', [post._id], req.user?.id);
     return res.status(200).json({
       success: true,
       data: {
@@ -136,7 +149,8 @@ async function getPostById(req, res, next) {
             ? { id: post.author._id.toString(), name: post.author.name }
             : { id: null, name: 'Former student' },
           createdAt: post.createdAt,
-          updatedAt: post.updatedAt
+          updatedAt: post.updatedAt,
+          ...(reactions.get(post._id.toString()) || { reactionCount: 0, isLiked: false })
         }
       }
     });
@@ -233,6 +247,10 @@ async function deletePost(req, res, next) {
       return res.status(403).json({ success: false, message: 'You can only delete discussions you created.' });
     }
 
+    const Comment = require('../models/Comment');
+    const commentIds = await Comment.find({ post: id }).distinct('_id');
+    await Reaction.deleteMany({ $or: [{ targetType: 'Post', target: id }, { targetType: 'Comment', target: { $in: commentIds } }] });
+    await Comment.deleteMany({ post: id });
     await post.deleteOne();
     return res.status(200).json({
       success: true,
