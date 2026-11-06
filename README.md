@@ -44,6 +44,7 @@ The API runs at `http://localhost:5000` by default.
 - `POST /api/auth/register` — create a student account
 - `POST /api/auth/login` — verify credentials and issue a JWT
 - `GET /api/auth/me` — return the authenticated student profile
+- `POST /api/posts` — create an authenticated student discussion
 - `POST /api/auth/logout` — clear the authenticated browser session
 - `GET /api` — API welcome response
 
@@ -78,7 +79,8 @@ See `backend/.env.example`. Never commit `.env` or production secrets.
 3. Student registration and password hashing
 4. Student login and protected profile endpoint
 5. Student profile page and session logout
-6. Posts, details, editing, deletion, search, and categories
-6. Posts, details, editing, deletion, search, and categories
-7. Comments, replies, reactions, and notifications
-8. Administration, moderation, hardening, and deployment
+6. Authenticated discussion creation
+7. Post feeds, details, editing, deletion, search, and categories
+7. Post feeds, details, editing, deletion, search, and categories
+8. Comments, replies, reactions, and notifications
+9. Administration, moderation, hardening, and deployment
