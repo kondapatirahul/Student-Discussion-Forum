@@ -33,3 +33,18 @@
 .comment-edit-form { margin-top: .75rem; }
 .reply-context { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding: .6rem .85rem; border-radius: 10px; background: #eef2ff; color: #425de6; }
 .comment-empty { padding: 1.5rem; border: 1px dashed #dce2ee; border-radius: 14px; text-align: center; color: #778096; }
+
+
+/* Reactions */
+.reaction-button {
+  border: 1px solid #d8deea;
+  border-radius: 999px;
+  color: #526078;
+  background: #fff;
+  padding: .35rem .8rem;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.reaction-button:hover { border-color: #8da9ee; background: #f5f8ff; }
+.reaction-button.is-liked, .reaction-inline.is-liked { color: #c12f58 !important; font-weight: 700; }
+.reaction-button:disabled, .reaction-inline:disabled { opacity: .65; cursor: wait; }
+.post-reaction-row { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
