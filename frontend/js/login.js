@@ -40,8 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Session storage limits token persistence to this browser tab session.
-      sessionStorage.setItem('campustalk_token', result.data.token);
-      sessionStorage.setItem('campustalk_user', JSON.stringify(result.data.user));
+      window.CampusTalkSession.save(result.data.token, result.data.user);
       showMessage(`Welcome back, ${result.data.user.name}. Redirecting to your dashboard…`, 'success');
       window.setTimeout(() => {
         window.location.href = 'dashboard.html';
