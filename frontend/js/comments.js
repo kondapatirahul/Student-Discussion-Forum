@@ -83,6 +83,30 @@
       const currentUser = session?.getUser();
       const ownsComment = Boolean(currentUser?.id && comment.author?.id && String(currentUser.id) === String(comment.author.id));
 
+      const likeButton = document.createElement('button');
+      likeButton.type = 'button';
+      likeButton.className = `btn btn-link btn-sm text-decoration-none p-0 me-2 reaction-inline${comment.isLiked ? ' is-liked' : ''}`;
+      likeButton.setAttribute('aria-pressed', String(Boolean(comment.isLiked)));
+      likeButton.textContent = `♥ ${comment.reactionCount || 0}`;
+      likeButton.addEventListener('click', async () => {
+        if (!signedIn) { window.location.href = 'login.html'; return; }
+        likeButton.disabled = true;
+        try {
+          const response = await fetch(`${apiBase}/posts/${postId}/comments/${comment.id}/reaction`, {
+            method: 'POST', headers: { Authorization: `Bearer ${session.getToken()}` }
+          });
+          const result = await response.json();
+          if (response.status === 401) { session.clear(); window.location.replace('login.html'); return; }
+          if (!response.ok || !result.success) throw new Error(result.message || 'Could not update your like.');
+          likeButton.classList.toggle('is-liked', result.data.liked);
+          likeButton.setAttribute('aria-pressed', String(result.data.liked));
+          likeButton.textContent = `♥ ${result.data.reactionCount}`;
+        } catch (error) {
+          showStatus(error.message, 'danger');
+        } finally { likeButton.disabled = false; }
+      });
+      actionBar.append(likeButton);
+
       if (signedIn && !isReply) {
         const replyButton = document.createElement('button');
         replyButton.type = 'button';
@@ -225,7 +249,10 @@
       list.innerHTML = '<div class="text-secondary small">Loading comments…</div>';
       try {
         const params = new URLSearchParams({ page: String(state.page), limit: String(state.limit) });
-        const response = await fetch(`${apiBase}/posts/${postId}/comments?${params}`);
+        const token = session?.getToken();
+        const response = await fetch(`${apiBase}/posts/${postId}/comments?${params}`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        });
         const result = await response.json();
         if (requestId !== state.requestId) return;
         if (!response.ok || !result.success || !result.data) throw new Error(result.message || 'Comments could not be loaded.');

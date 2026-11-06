@@ -53,6 +53,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('authorName').textContent = post.author?.name || 'Former student';
     document.getElementById('authorInitial').textContent = (post.author?.name || 'S').trim().charAt(0).toUpperCase();
     document.getElementById('postContent').textContent = post.content || '';
+    const likeButton = document.getElementById('postLikeButton');
+    const likeHint = document.getElementById('postLikeHint');
+    likeButton.classList.toggle('is-liked', Boolean(post.isLiked));
+    likeButton.setAttribute('aria-pressed', String(Boolean(post.isLiked)));
+    likeButton.textContent = `♥ ${post.reactionCount || 0} ${(post.reactionCount || 0) === 1 ? 'like' : 'likes'}`;
+    likeHint.textContent = window.CampusTalkSession?.getToken() ? 'Show appreciation for this discussion.' : 'Sign in to like this discussion.';
     document.getElementById('updatedDate').textContent =
       post.updatedAt && post.updatedAt !== post.createdAt ? `Updated ${formatDate(post.updatedAt)}` : 'Original post';
 
@@ -64,7 +70,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function loadPost() {
-    const response = await fetch(`${apiBase}/posts/${encodeURIComponent(postId)}`);
+    const token = window.CampusTalkSession?.getToken();
+    const response = await fetch(`${apiBase}/posts/${encodeURIComponent(postId)}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    });
     const result = await response.json();
     if (!response.ok || !result.success || !result.data?.post) {
       throw new Error(result.message || 'This discussion could not be loaded.');
@@ -83,6 +92,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     showFailure(`${error.message} Check your connection and try again.`);
     return;
   }
+
+  document.getElementById('postLikeButton').addEventListener('click', async () => {
+    const token = window.CampusTalkSession?.getToken();
+    if (!token) { window.location.href = 'login.html'; return; }
+    const button = document.getElementById('postLikeButton');
+    button.disabled = true;
+    try {
+      const response = await fetch(`${apiBase}/posts/${encodeURIComponent(postId)}/reaction`, {
+        method: 'POST', headers: { Authorization: `Bearer ${token}` }
+      });
+      const result = await response.json();
+      if (response.status === 401) { window.CampusTalkSession.clear(); window.location.replace('login.html'); return; }
+      if (!response.ok || !result.success) throw new Error(result.message || 'Could not update your like.');
+      button.classList.toggle('is-liked', result.data.liked);
+      button.setAttribute('aria-pressed', String(result.data.liked));
+      button.textContent = `♥ ${result.data.reactionCount} ${result.data.reactionCount === 1 ? 'like' : 'likes'}`;
+    } catch (error) {
+      document.getElementById('postLikeHint').textContent = error.message;
+    } finally { button.disabled = false; }
+  });
 
   document.getElementById('editPostButton').addEventListener('click', () => {
     if (!loadedPost) return;
