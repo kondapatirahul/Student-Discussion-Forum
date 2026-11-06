@@ -145,4 +145,103 @@ async function getPostById(req, res, next) {
   }
 }
 
-module.exports = { createPost, listPosts, getPostById };
+
+function validatePostInput(body = {}) {
+  const title = typeof body.title === 'string' ? body.title.trim() : '';
+  const content = typeof body.content === 'string' ? body.content.trim() : '';
+  const category = typeof body.category === 'string' ? body.category.trim() : '';
+  const errors = [];
+
+  if (title.length < 5 || title.length > 140) {
+    errors.push('Title must be between 5 and 140 characters.');
+  }
+  if (content.length < 20 || content.length > 10000) {
+    errors.push('Description must be between 20 and 10000 characters.');
+  }
+  if (!POST_CATEGORIES.includes(category)) {
+    errors.push('Choose a valid discussion category.');
+  }
+
+  return { valid: errors.length === 0, errors, values: { title, content, category } };
+}
+
+async function updatePost(req, res, next) {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ success: false, message: 'The discussion ID is invalid.' });
+    }
+
+    const validation = validatePostInput(req.body || {});
+    if (!validation.valid) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please correct the discussion details.',
+        errors: validation.errors
+      });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ success: false, message: 'This discussion could not be found.' });
+    }
+    if (String(post.author) !== String(req.user.id)) {
+      return res.status(403).json({ success: false, message: 'You can only edit discussions you created.' });
+    }
+
+    post.title = validation.values.title;
+    post.content = validation.values.content;
+    post.category = validation.values.category;
+    await post.save();
+    await post.populate('author', 'name');
+
+    return res.status(200).json({
+      success: true,
+      message: 'Your discussion has been updated.',
+      data: {
+        post: {
+          id: post.id,
+          title: post.title,
+          content: post.content,
+          category: post.category,
+          author: { id: post.author.id, name: post.author.name },
+          createdAt: post.createdAt,
+          updatedAt: post.updatedAt
+        }
+      }
+    });
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ success: false, message: 'The discussion details are invalid.' });
+    }
+    return next(error);
+  }
+}
+
+async function deletePost(req, res, next) {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ success: false, message: 'The discussion ID is invalid.' });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ success: false, message: 'This discussion could not be found.' });
+    }
+    if (String(post.author) !== String(req.user.id)) {
+      return res.status(403).json({ success: false, message: 'You can only delete discussions you created.' });
+    }
+
+    await post.deleteOne();
+    return res.status(200).json({
+      success: true,
+      message: 'Your discussion has been deleted.',
+      data: { id }
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { createPost, listPosts, getPostById, updatePost, deletePost };
