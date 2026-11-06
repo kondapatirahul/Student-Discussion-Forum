@@ -1,0 +1,17 @@
+.feed-container { max-width: 1040px; min-height: 72vh; }
+.feed-header h1 { letter-spacing: -.045em; }
+.feed-toolbar, .discussion-card { border: 1px solid #e8ecf5; border-radius: 18px; background: #fff; box-shadow: 0 12px 38px rgba(25, 43, 91, .045); }
+.feed-toolbar .form-control, .feed-toolbar .form-select { min-height: 44px; border-color: #dfe4ef; border-radius: 10px; }
+.feed-toolbar .form-control:focus, .feed-toolbar .form-select:focus { border-color: #8798f2; box-shadow: 0 0 0 .2rem rgba(66, 93, 230, .12); }
+.discussion-list { display: grid; gap: 1rem; }
+.discussion-card { padding: 1.35rem 1.5rem; transition: transform .18s ease, box-shadow .18s ease; }
+.discussion-card:hover { transform: translateY(-2px); box-shadow: 0 16px 42px rgba(25, 43, 91, .08); }
+.discussion-card h2 { font-size: 1.18rem; letter-spacing: -.02em; }
+.discussion-card p { line-height: 1.65; }
+.discussion-meta { color: #778096; font-size: .84rem; }
+.discussion-category { background: #eef2ff; color: #425de6; font-weight: 600; }
+.feed-loading, .feed-empty { padding: 3rem 1.5rem; text-align: center; border: 1px dashed #dce2ee; border-radius: 18px; color: #778096; background: #fbfcff; }
+.feed-empty h2 { color: #1e293b; }
+.feed-pagination button { min-width: 112px; }
+@media (max-width: 575.98px) { .discussion-card { padding: 1.1rem; } .feed-pagination button { min-width: 96px; } }
+\n.feed-author-avatar { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #edf0ff; color: #425de6; font-size: .78rem; font-weight: 700; }\n
