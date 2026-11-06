@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
       form.classList.remove('was-validated');
       updateCounter();
-      showMessage('Your discussion has been published successfully. Post listing will be available in a later increment.', 'success');
+      showMessage('Your discussion has been published successfully. You can find it in the discussions feed.', 'success');
     } catch (error) {
       showMessage(error.message || 'Unable to publish your discussion. Please try again.', 'danger');
     } finally {
