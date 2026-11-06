@@ -1,10 +1,12 @@
 const express = require('express');
 const { createPost, listPosts, getPostById, updatePost, deletePost } = require('../controllers/post.controller');
 const authenticate = require('../middleware/authenticate');
+const commentRoutes = require('./comment.routes');
 
 const router = express.Router();
 
 router.get('/', listPosts);
+router.use('/:postId/comments', commentRoutes);
 router.get('/:id', getPostById);
 router.patch('/:id', authenticate, updatePost);
 router.delete('/:id', authenticate, deletePost);
